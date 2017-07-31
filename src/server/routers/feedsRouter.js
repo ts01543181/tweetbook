@@ -7,7 +7,6 @@ feedsRouter.get('/tweets', (req, res) => {
 })
 
 feedsRouter.post('/tweets', (req, res) => {
-    //talk to db
     db.Tweet.create({
         user: req.body.user,
         message: req.body.message
@@ -15,7 +14,6 @@ feedsRouter.post('/tweets', (req, res) => {
     .then(() => {
         db.Tweet.findAll()
         .then(data => {
-            console.log(data)
             res.send(data)
         })
     })
