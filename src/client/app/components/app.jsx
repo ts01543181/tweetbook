@@ -1,5 +1,6 @@
 import React from 'react'
 import {render} from 'react-dom'
+import { Route, Link } from 'react-router-dom'
 import axios from 'axios'
 import $ from 'jquery'
 import FeedsList from './FeedsList.jsx'
@@ -20,11 +21,9 @@ class App extends React.Component {
     .then(data => this.setState({feeds: data.data}))
   }
 
-  //this component should know who the current logged in user fomr Login component
-
   createNewFeed() {
     let feed = {
-      user: 'fake user',
+      user: this.props.location.state.data.username,
       message: $('#feedInput').val()
     }
     $('#feedInput').val('')
@@ -38,13 +37,21 @@ class App extends React.Component {
 
 
   render () {
+    let userInfo = {
+      pathname: '/profile',
+      user: this.props.location.state.data
+    }
+
     return (
       <div id="app-container">
         <h1>Twittler</h1>
-        <h3>Welcome! Person</h3>
+        <h3>Welcome! {userInfo.user.username}</h3>
+
+        <Link to={userInfo}><button>Profile</button></Link>
 
         <input type="text" placeholder="say something!" id="feedInput"/><button onClick={this.createNewFeed}>Post</button>
         <FeedsList feeds={this.state.feeds}/>
+        
       </div>
     )
   }
