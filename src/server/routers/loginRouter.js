@@ -1,12 +1,24 @@
 const loginRouter = require('express').Router()
 const db = require('../db')
 
-loginRouter.get('/login', (req, res) => {
-    console.log(req.body)
+loginRouter.get('/', (req, res) => {
+    
 })
 
-loginRouter.post('/login', (req, res) => {
-    console.log(req.body)
+loginRouter.post('/', (req, res) => {
+    db.User.findOne({
+        where: {
+            username: req.body.username,
+            password: req.body.password
+        }
+    })
+    .then(data => {
+        if (data) {
+            res.send(data)
+        } else {
+            res.send('fail')
+        }
+    })
 })
 
 

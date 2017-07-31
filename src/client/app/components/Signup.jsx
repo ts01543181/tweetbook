@@ -22,9 +22,13 @@ class Signup extends Component {
         let user = {username:sn, password:pw}
 
         axios.post('/api/signup', user)
-        .then((data) => {
-            if (data) {
-                this.props.history.push('/login')
+        .then(({data}) => {
+            if (data === 'success') {
+                alert('Your account was created successfully!')
+                this.props.history.push('/')
+            } else {
+                alert('The username has been taken')
+                return
             }
         })
     }

@@ -29,7 +29,7 @@ class App extends React.Component {
     }
     $('#feedInput').val('')
 
-    axios.post('api/tweets', feed)
+    axios.post('/api/tweets', feed)
     .then(data => {
       console.log(data)
       this.setState({feeds: data.data})
