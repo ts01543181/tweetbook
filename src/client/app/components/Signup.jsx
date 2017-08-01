@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 import $ from 'jquery'
 
 class Signup extends Component {
@@ -25,7 +26,7 @@ class Signup extends Component {
         .then((data) => {
             if (data.data === 'success') {
                 alert('Your account was created successfully!')
-                this.props.history.push('/login')
+                
             } else {
                 alert('The username has been taken')
                 
@@ -41,6 +42,7 @@ class Signup extends Component {
                 <div><span>Username</span><input type="text" id="username"/></div>
                 <div><span>Password</span><input id="password" type="password"/></div>
                 <button onClick={this.signUp}>Create Account</button>
+                <Link to="/"><button>Back To Login</button></Link>
                 </div>
             </div>
         )

@@ -8,6 +8,13 @@ body {
     font-family: 'Kalam';
 }
 
+button {
+    font-family: 'Kalam';
+    border-radius: 4px;
+    border: 1px solid #aaa;
+    background-color: ghostwhite;
+}
+
 button:hover {
     cursor:pointer;
     box-shadow: 1px 1px 10px 1px;
