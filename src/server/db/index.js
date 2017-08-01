@@ -5,10 +5,7 @@ const db = new Sequelize('tweet_feeds', 'root', '', {dialect: 'mysql'})
 const User = db.define('User', {
     username: Sequelize.STRING,
     password: Sequelize.STRING,
-    profilePicture: {
-        type: Sequelize.TEXT,
-        allowNull: true
-    }
+    profilePicture: Sequelize.TEXT
 })
 
 

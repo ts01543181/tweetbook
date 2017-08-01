@@ -22,7 +22,7 @@ class Profile extends Component {
         .then(messageData => {
             axios.get(`/api/user/img/${this.props.location.user.username}`)
             .then(userData => {
-                console.log(messageData, userData)
+                console.log(userData)
                 this.setState({
                     userTweets: messageData.data,
                     userImage: userData.data.profilePicture
@@ -42,9 +42,10 @@ class Profile extends Component {
             }
             
             axios.post(`/api/user/img`, user)
-            .then(data => {
+            .then(({ data }) => {
+                console.log(data)
                 this.setState({
-                    userImage: reader.result
+                    userImage: data.profilePicture
                 })
             })
         }
@@ -53,8 +54,15 @@ class Profile extends Component {
     }
 
     submitPost() {
+        let tweet = {
+            user: this.props.location.user.username,
+            message: $('#userInput').val()
+        }
 
-
+        axios.post('/api/user', tweet)
+        .then(({ data }) => this.setState({
+            userTweets: data
+        }))
     }
 
 
@@ -66,15 +74,14 @@ class Profile extends Component {
             <div id="profile-container">
                 <h1>{name}</h1>
                 <div>
-                    {
-                        this.state.userImage ? <img src={this.state.userImage} alt="success" /> 
-                        : 
+                        <img src={this.state.userImage} alt="success" /> 
+                        
                         <div>
-                            <h3>Upload Your Imaged</h3>
+                            <h3>Upload Your Image</h3>
                             <input type="file" onChange={(e) => this.handleImageUpload(e)}/>
                             <button onClick="">Upload</button>
                         </div>
-                    }
+                    
                 </div>
                 <div>
                     post something
