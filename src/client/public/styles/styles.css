@@ -2,6 +2,44 @@
     text-align: center
 }
 
-li {
+.tweet-container {
+    margin: 0 auto;
+    border: 1px solid #eee;
+    width: 45%;
+    height: auto;
+    padding:6px;
+}
+
+.tweet-container li {
     list-style: none;
+}
+
+.leave-comment {
+    position: relative;
+    top:0;
+}
+
+.show-comment {
+    position: relative;
+    top: 0;
+}
+
+ul {
+
+}
+
+#profile-button {
+
+}
+
+.tweet-image {
+    float:left;
+    height: 50px;
+    width:50px;
+}
+
+.comment-profile {
+    float:left;
+    height: 30px;
+    width: 30px;
 }

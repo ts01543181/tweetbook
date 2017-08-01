@@ -44,11 +44,9 @@ userRouter.post('/img', (req, res) => {
         }
     })
     .then(data => {
-        console.log(req.body.imgURL)
         data.update({
             profilePicture: req.body.imgURL
         })
-        console.log(data)
         res.send(data)
     })
 })

@@ -4,7 +4,7 @@ import { Route, Link } from 'react-router-dom'
 import axios from 'axios'
 import $ from 'jquery'
 import FeedsList from './FeedsList.jsx'
-
+import Nav from './Nav.jsx'
 
 
 class App extends React.Component {
@@ -30,7 +30,6 @@ class App extends React.Component {
 
     axios.post('/api/tweets', feed)
     .then(data => {
-      console.log(data)
       this.setState({feeds: data.data})
     })
   }
@@ -41,16 +40,16 @@ class App extends React.Component {
       pathname: '/profile',
       user: this.props.location.state.data
     }
-
+    
     return (
       <div id="app-container">
         <h1>Twittler</h1>
         <h3>Welcome! {userInfo.user.username}</h3>
-
-        <Link to={userInfo}><button>Profile</button></Link>
+        {/* <Nav user={this.props.location.state.data}/> */}
+         <Link to={userInfo}><button id="profile-button">Profile</button></Link> 
 
         <input type="text" placeholder="say something!" id="feedInput"/><button onClick={this.createNewFeed}>Post</button>
-        <FeedsList feeds={this.state.feeds}/>
+        <FeedsList feeds={this.state.feeds} user={userInfo.user} className="feed-list"/>
         
       </div>
     )

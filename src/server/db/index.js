@@ -11,7 +11,14 @@ const User = db.define('User', {
 
 const Tweet = db.define('Tweet', {
     message: Sequelize.TEXT,
-    user: Sequelize.STRING
+    user: Sequelize.STRING,
+    comments: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+        get() {
+            return this.getDataValue('comments')
+        }
+    }
 })
 
 

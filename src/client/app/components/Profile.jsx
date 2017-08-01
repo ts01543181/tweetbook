@@ -58,7 +58,6 @@ class Profile extends Component {
             user: this.props.location.user.username,
             message: $('#userInput').val()
         }
-
         axios.post('/api/user', tweet)
         .then(({ data }) => this.setState({
             userTweets: data
@@ -69,7 +68,7 @@ class Profile extends Component {
     render() {
 
         let name = this.props.location.user.username
-        // let pic = this.props.location.user.img
+
         return (
             <div id="profile-container">
                 <h1>{name}</h1>

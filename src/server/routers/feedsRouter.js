@@ -19,5 +19,42 @@ feedsRouter.post('/', (req, res) => {
     })
 })
 
+feedsRouter.get('/comments/:username', (req, res) => {
+    db.User.findOne({
+        where: {
+            username: req.params.username
+        }
+    })
+    .then(data => res.send(data))
+})
 
+feedsRouter.post('/comments', (req, res) => {
+    db.Tweet.findOne({
+        where: {
+            id: req.body.feed.id
+        }
+    })
+    .then(tweet => {
+        // tweet.comments = req.body.comment
+        let previousComments = tweet.get().comments
+  
+        let newComments =  previousComments + ',' + req.body.user + ':' + req.body.comment
+        tweet.update({
+            comments: newComments
+        })
+        
+    })
+})
+
+feedsRouter.get('/showComments/:feedId', (req, res) => {
+    db.Tweet.findOne({
+        where: {
+            id: req.params.feedId
+        }
+    })
+    .then(data => {
+        let comments = data.comments.split(',').slice(1)
+        res.send(comments)
+    })
+})
 module.exports = feedsRouter
