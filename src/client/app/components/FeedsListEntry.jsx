@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Image from 'react-image-resizer'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Comments from './Comments.jsx'
 import $ from 'jquery'
@@ -12,27 +12,29 @@ class FeedsListEntry extends Component{
         this.state = {
             comments: [],
             profilePicture: '',
-            inputVal: ''
+            inputVal: '',
+            originalPo: ''
         }
         this.submitComment = this.submitComment.bind(this)
         this.showComment = this.showComment.bind(this)
         this.updateInput = this.updateInput.bind(this)
+        this.hideComment = this.hideComment.bind(this)
     }
 
 
     componentWillMount() {
         axios.get(`/api/tweets/comments/${this.props.feed.user}`)
-        .then((data) => this.setState({
-            profilePicture: data.data.profilePicture
-        }))
+        .then(({data}) => {
+            this.setState({
+                profilePicture: data.profilePicture,
+                originalPo: data
+            })
+        })
         
     }
 
-    componentDidMount() {
-     
-    }
-
     submitComment() {
+        console.log('fired')
         let comment = this.state.inputVal
         if (comment.length > 0) {
             //remember to parse it when you get back from server
@@ -43,12 +45,23 @@ class FeedsListEntry extends Component{
             }
             
             axios.post('/api/tweets/comments', feed)
+            .then(({data}) => {
+                let comments = data.comments.split(',').slice(1)
+                this.setState({
+                    comments
+                })
+            })
         }
         
     }
 
-    showComment() {
-        
+    hideComment(){
+        this.setState({
+            comments:[]
+        })
+    }
+
+    showComment() {  
         axios.get(`/api/tweets/showComments/${this.props.feed.id}`)
         .then(({data}) => {
             this.setState({
@@ -63,16 +76,17 @@ class FeedsListEntry extends Component{
         })
     }
 
-
     render() {
         return (
             <div className="tweet-container">
-                <img src={this.state.profilePicture} className="tweet-image"/>
+                <Link to={{pathname: '/profile',user: this.state.originalPo}}>
+                <img src={this.state.profilePicture} className="tweet-image" onClick={this.showProfile}/>
+                </Link>
                 <li className="feed-list-entry">{this.props.feed.user}: <br/>
                 {this.props.feed.message}<br/>
                 </li>
                 <button className="show-comment" onClick={this.showComment}>Show Comments</button>
-                <button className="leave-comment" onClick={this.leaveComment}>Leave Comment</button>
+                <button className="hide-comment" onClick={this.hideComment}>Hide Comment</button><br/>
                 <input type="text" placeholder="write a comment..." className="comment-field" 
                 onChange={(e) => {
                     this.updateInput(e.target.value)
@@ -83,7 +97,7 @@ class FeedsListEntry extends Component{
                     }
 
                 }}/>
-                <Comments commentList={this.state.comments}/>
+                <Comments commentList={this.state.comments} />
             </div>
         )
     }

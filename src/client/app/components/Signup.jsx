@@ -22,13 +22,13 @@ class Signup extends Component {
         let user = {username:sn, password:pw}
 
         axios.post('/api/signup', user)
-        .then(({data}) => {
-            if (data === 'success') {
+        .then((data) => {
+            if (data.data === 'success') {
                 alert('Your account was created successfully!')
-                this.props.history.push('/')
+                this.props.history.push('/login')
             } else {
                 alert('The username has been taken')
-                return
+                
             }
         })
     }
@@ -36,9 +36,12 @@ class Signup extends Component {
     render() {
         return  (
             <div>
-                <span>Username</span><input id="username" type="text"/>
-                <span>Password</span><input id="password" type="password"/>
+                <h2 className="title">TweetBook</h2>
+                <div className="signup-container">
+                <div><span>Username</span><input type="text" id="username"/></div>
+                <div><span>Password</span><input id="password" type="password"/></div>
                 <button onClick={this.signUp}>Create Account</button>
+                </div>
             </div>
         )
     }

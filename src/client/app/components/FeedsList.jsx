@@ -7,10 +7,10 @@ import FeedsListEntry from './FeedsListEntry.jsx'
 const FeedsList = ({ feeds, user }) => {
 
     return (
-        <ul>
+        <ul className="feed-list-container">
         {
             feeds.map((feed) => {
-                return <FeedsListEntry feed={feed} user={user}/>
+                return <FeedsListEntry feed={feed} user={user} className="feed"/>
             })
         }
         </ul>

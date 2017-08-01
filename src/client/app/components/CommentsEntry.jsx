@@ -18,12 +18,15 @@ class CommentEntry extends Component {
         })
     }
 
+    showProfile() {
+        
+    }
 
     render() {
     
         return (
-            <li>
-                <img src={this.state.pic} className="comment-profile"/>
+            <li className="comment-entry">
+                <img src={this.state.pic} className="comment-profile" onClick={this.showProfile}/>
                 {this.props.userComment}
             </li>
         )

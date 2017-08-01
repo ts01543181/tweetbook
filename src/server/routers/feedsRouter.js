@@ -42,7 +42,7 @@ feedsRouter.post('/comments', (req, res) => {
         tweet.update({
             comments: newComments
         })
-        
+        res.send(tweet)
     })
 })
 

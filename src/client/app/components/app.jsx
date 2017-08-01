@@ -43,10 +43,9 @@ class App extends React.Component {
     
     return (
       <div id="app-container">
-        <h1>Twittler</h1>
-        <h3>Welcome! {userInfo.user.username}</h3>
+        <h1>Welcome to TweetBook</h1>
         {/* <Nav user={this.props.location.state.data}/> */}
-         <Link to={userInfo}><button id="profile-button">Profile</button></Link> 
+         <Link to={userInfo}><button id="profile-button">Profile</button></Link>
 
         <input type="text" placeholder="say something!" id="feedInput"/><button onClick={this.createNewFeed}>Post</button>
         <FeedsList feeds={this.state.feeds} user={userInfo.user} className="feed-list"/>

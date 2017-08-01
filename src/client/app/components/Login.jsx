@@ -37,10 +37,13 @@ class Login extends Component {
     render() {
         return (
             <div>
-                <span>Username</span><input id="username" type="text"/>
-                <span>Password</span><input id="password" type="password"/>
-                <button onClick={this.checkCredentials}>Login</button>
-                <Link to="/signup"><button>Sign Up</button></Link>
+                <h2 className="title">TweetBook</h2>
+                <div className="login-container">
+                    <div><span>Username</span><input type="text" id="username"/></div>
+                    <div><span>Password</span><input id="password" type="password"/></div>
+                    <button onClick={this.checkCredentials}>Login</button>
+                    <Link to="/signup"><button>Sign Up</button></Link>
+                </div>
             </div>
         )
     }
